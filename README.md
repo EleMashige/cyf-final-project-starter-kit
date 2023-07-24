@@ -16,6 +16,8 @@
 - [x] [Docker] build
 - [x] [Postgres] database with [node-postgres]
 
+
+
 ## Setup
 
 > **Note** if you have _any problems_ setting up the starter kit, see the [wiki] and, if still not solved, post to
@@ -89,3 +91,8 @@ See the guidance in the [wiki].
 [Webpack]: https://webpack.js.org/
 [wiki]: https://github.com/textbook/starter-kit/wiki
 [Winston]: https://github.com/winstonjs/winston
+
+
+## Table of Contents
+
+- [Assistant](Assistant.md)  <!-- Link to the new Markdown file -->
