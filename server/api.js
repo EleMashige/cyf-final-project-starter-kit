@@ -31,7 +31,6 @@ router.get("/auth/github", async( req, res) => {
 	const user_resp = await fetch("https://api.github.com/user", {
 		headers: { Authorization: auth },
 	});
-
 	const github_user = await user_resp.json();
 	res.send(github_user);
 	let result = await db.query("SELECT * FROM users WHERE username=$1", [github_user.login]);
@@ -43,6 +42,7 @@ router.get("/auth/github", async( req, res) => {
 		user = result.rows[0];
 	}
 	req.session.user = user;
-	res.send(user);
+	res.send("/dashboard");
 });
+
 export default router;
