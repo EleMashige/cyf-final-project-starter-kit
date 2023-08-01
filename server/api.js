@@ -1,4 +1,4 @@
-
+import db from "./db";
 import config  from "./utils/config";
 import { Router } from "express";
 import fetch from "node-fetch";
@@ -25,15 +25,17 @@ router.get("/auth/github", async( req, res) => {
 		});
     const data = await resp.json();
 	logger.debug(JSON.stringify(data));
-	const auth = "Bearer " + data.access_token ;
+	const auth = "Bearer " + data.access_token;
 	logger.debug(auth);
 	const user_resp = await fetch("https://api.github.com/user", {
 		headers: { Authorization: auth },
 	});
 
 	const gh_user = await user_resp.json();
-
-	res.send(gh_user);
+    // res.send(gh_user);
+	// const user = await db.query("SELECT * FROM users WHERE username=$1", [data.login]);
+	const result = await db.query("INSERT INTO users (username, name) VALUES ($1, $2)", [gh_user.login, gh_user.name]);
+	res.send(result);
 });
 
 export default router;
