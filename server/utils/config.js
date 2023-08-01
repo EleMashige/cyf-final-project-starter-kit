@@ -1,26 +1,45 @@
-import "dotenv/config";
+const HtmlWebpackPlugin = require("html-webpack-plugin");
 
-export default {
-	dbUrl: createDatabaseUrl(),
-	logLevel: process.env.LOG_LEVEL ?? "info",
-	port: parseInt(process.env.PORT ?? "3000", 10),
-	production: process.env.NODE_ENV === "production",
-	client_id: process.env.CLIENT_ID,
-	client_secret: process.env.CLIENT_SECRET,
-	client_key: process.env.CLIENT_KEY,
+const { DefinePlugin } = require("webpack");
+require("dotenv").config();
+
+module.exports = {
+	entry: "./client/src/index.js",
+	module: {
+		rules: [
+			{
+				test: /\.js$/,
+				exclude: /node_modules/,
+				use: {
+					loader: "babel-loader",
+					options: {
+						cacheDirectory: true,
+					},
+				},
+			},
+			{
+				test: /\.(png|svg|jpe?g|gif)$/,
+				loader: "file-loader",
+			},
+			{
+				test: /\.css$/,
+				use: ["style-loader", "css-loader"],
+			},
+		],
+	},
+	output: {
+		publicPath: "/",
+	},
+	plugins: [
+		new HtmlWebpackPlugin({
+			favicon: "./client/src/favicon.ico",
+			template: "./client/src/index.html",
+		}),
+		new DefinePlugin({
+			// "process.env.<NAME_IN_APP>": JSON.stringify(process.env.<DOTENV_FILE_NAME>),
+                        "process.env.CLIENT_ID": JSON.stringify(process.env.CLIENT_ID),
+						"process.env.CLIENT_KEY": JSON.stringify(process.env.CLIENT_KEY),
+						"process.env.REDIRECT_URI": JSON.stringify(process.env.REDIRECT_URI),
+		}),
+	],
 };
-
-function createDatabaseUrl() {
-	if (process.env.DATABASE_URL) {
-		return process.env.DATABASE_URL;
-	}
-	const host = process.env.DB_HOST ?? "localhost";
-	const name = process.env.DB_NAME ?? "cyf";
-	const password = process.env.DB_PASS ?? process.env.DB_PASSWORD ?? "";
-	const port = process.env.DB_PORT ?? "5432";
-	const username = process.env.DB_USER ?? process.env.DB_USERNAME ?? "";
-	const userinfo = `${username}:${password}`;
-	return `postgres://${
-		userinfo !== ":" ? `${userinfo}@` : ""
-	}${host}:${port}/${name}`;
-}

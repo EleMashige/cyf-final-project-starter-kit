@@ -5,8 +5,8 @@ import Home from "./pages/Home";
 const App = () => (
 	<Routes>
 		<Route path="/" element={<Home />} />
-		<Route path="/dashboard" element={<Dashboard />} />
+		<Route path="/dashboard/:name" element={<Dashboard />} />
 	</Routes>
-);
+	);
 
-export default App;
+	export default App;

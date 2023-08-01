@@ -1,11 +1,8 @@
-import path from "node:path";
-
 import express, { Router } from "express";
 import helmet from "helmet";
 import morgan from "morgan";
-
+import path from "path";
 import logger from "./logger";
-
 export const clientRouter = (apiRoot) => {
 	const staticDir = path.join(__dirname, "..", "static");
 	const router = Router();
@@ -18,19 +15,27 @@ export const clientRouter = (apiRoot) => {
 	});
 	return router;
 };
-
 export const configuredHelmet = () => helmet({ contentSecurityPolicy: false });
-
 export const configuredMorgan = () =>
 	morgan("dev", {
 		stream: { write: (message) => logger.info(message.trim()) },
 	});
-
 export const httpsOnly = () => (req, res, next) => {
 	if (!req.secure) {
 		return res.redirect(301, `https://${req.headers.host}${req.originalUrl}`);
 	}
 	next();
+};
+
+export const ensureAuthenticated = () => (req, res, next) => {
+	if (
+		(req.session && req.session.user) ||
+		req.path === "/" ||
+		req.path.includes("/api/auth")
+	) {
+		return next();
+	}
+	res.status(403).json({ message: "Unauthorized!!" });
 };
 
 export const logErrors = () => (err, _, res, next) => {
