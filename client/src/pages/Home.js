@@ -21,8 +21,8 @@ export function Home() {
 	}, []);
 
 	const client_id = "a823fe614b9796fe502f";
-    const redirect_uri = "http://localhost:3100/api/auth/github";
-	const githubLoginUrl = "https://github.com/login/oauth/authorize";
+    const redirect_uri = "http://localhost:3000/api/auth/github";
+    const githubLoginUrl = "https://github.com/login/oauth/authorize";
     const state = "secret-key";
     const url = `${githubLoginUrl}?client_id=${client_id}&redirect_uri=${redirect_uri}&state=${state}`;
 
