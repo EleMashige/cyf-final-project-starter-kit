@@ -1,13 +1,15 @@
-import db from "./db";
 import config  from "./utils/config";
 import { Router } from "express";
 import fetch from "node-fetch";
+import db from "./db";
 import logger from "./utils/logger";
+import starRouter from "./starAPI";
 const router = Router();
 router.get("/", (_, res) => {
 	logger.debug("Welcoming everyone...");
 	res.json({ message: "Hello, world!" });
 });
+router.use(starRouter);
 router.get("/auth/github", async( req, res) => {
 	const { code, state } = req.query;
 	if(state !== config.client_key) {
@@ -15,7 +17,6 @@ router.get("/auth/github", async( req, res) => {
 		res.status(403).send("unauthorized");
 		return;
 	}
-
 	const baseUrl = "https://github.com/login/oauth/access_token";
 	const url = `${baseUrl}?client_id=${config.client_id}&client_secret=${config.client_secret}&code=${code}&scope=read:user`;
     const resp = await fetch (url,
@@ -31,18 +32,17 @@ router.get("/auth/github", async( req, res) => {
 		headers: { Authorization: auth },
 	});
 
-	const gh_user = await user_resp.json();
-    let result = await db.query("SELECT * FROM users WHERE username=$1", [gh_user.login]);
+	const github_user = await user_resp.json();
+	res.send(github_user);
+	let result = await db.query("SELECT * FROM users WHERE username=$1", [github_user.login]);
     let user;
 	if(result.rowCount === 0 ){
-		result = await db.query("INSERT INTO users (username, name, role) VALUES ($1, $2,'student') RETURNING *", [gh_user.login, gh_user.name]);
+		result = await db.query("INSERT INTO users (username, name, role) VALUES ($1, $2,'student') RETURNING *", [github_user.login, github_user.name]);
 		user = result.rows[0];
 	} else {
 		user = result.rows[0];
 	}
 	req.session.user = user;
-
 	res.send(user);
 });
-
 export default router;
