@@ -15,12 +15,12 @@
 
 // export default App;
 
-import React from 'react';
-import './App.css';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Home from './Components/Home Page/Home';
-import TraineeLogin from './Components/Login/TraineeLogin';
-import AdminLogin from './Components/Login/AdminLogin';
+import React from "react";
+import "./App.css";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Home from "./Components/Home Page/Home";
+import TraineeLogin from "./Components/Login/TraineeLogin";
+import AdminLogin from "./Components/Login/AdminLogin";
 
 const App = () => {
   return (
@@ -34,6 +34,8 @@ const App = () => {
       </div>
   );
 };
+
+
 
 export default App;
 
