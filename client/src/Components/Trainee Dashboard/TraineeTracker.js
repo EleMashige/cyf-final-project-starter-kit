@@ -4,22 +4,25 @@ import Footer from '../Footer/Footer';
 import './TraineeTracker.css'
 {/*import { resetWarningCache } from 'prop-types';*/}
 
-const TraineeTracker = () => {
+const TraineeTracker = (name) => {
 
-  const [prs, setPrs] = useState([]);
+  const [prs, setPrs] = useState(0);
+  const [show, setShow] = useState(false);
   const [codeWarsRank, setCodeWarsRank] = useState(0);
 
   useEffect(() => {
-    fetch("https://api.github.com/search/issues?q=is:pr%20author:Mathias02%20user:codeyourfuture")
+    fetch(`https://api.github.com/search/issues?q=is:pr%20author:${name}%20user:codeyourfuture`)
       .then((res) => res.json())
-      .then((data) => {
-        setPrs(data)})
-  }, []);
+      .then((data) =>{
+        console.log(data.items)
+        setPrs(data)
+      })
+  }, [name]);
   
     return(
         <div className="traineeD">
             <Navbar />
-            <h1>Hello trainee, below is your tracked total score</h1>
+            <h1>Hello trainee, below is your tracked total score</h1>           
             <div className='tablescore'>
               <table>
                 <thead>
@@ -31,14 +34,13 @@ const TraineeTracker = () => {
                 </thead>
                 <tbody>
                   <tr>
-                    <td>{prs.total_count}</td>
+                    <td>{show ? prs.total_count: 0}</td>
                     <td>56</td>
                     <td>52</td>
                   </tr>
                 </tbody>
               </table>
             </div>
-    
             <Footer />
         </div>
     )
