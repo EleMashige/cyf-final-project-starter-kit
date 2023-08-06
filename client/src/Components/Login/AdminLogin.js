@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+
 import "./AdminLogin.css";
 import Navbar from '../Navbar/Navbar';
 import Footer from '../Footer/Footer';
@@ -37,18 +38,18 @@ const AdminLogin = () => {
     <Navbar />
     <div className='signin-form-container'>
       <form className="signin-form" onSubmit={handleSubmit}>
-      <div className="form-group">
-        <label>Email:</label>
-        <input type="email" value={email} onChange={handleEmailChange} required />
-      </div>
-      <div className="form-group">
-        <label>Password:</label>
-        <input type="password" value={password} onChange={handlePasswordChange} required />
-      </div>
-      <Link to="/admin-dashboard">
-      <button type="submit" className="signin-button">Sign In</button>
-      </Link>
-    </form>
+        <div className="form-group">
+          <label>Email:</label>
+          <input type="email" value={email} onChange={handleEmailChange} required />
+        </div>
+        <div className="form-group">
+          <label>Password:</label>
+          <input type="password" value={password} onChange={handlePasswordChange} required />
+        </div>
+        <Link to="/admin-dashboard">
+        <button type="submit" className="signin-button">Sign In</button>
+        </Link>
+       </form>
     </div>
 
 <Footer />

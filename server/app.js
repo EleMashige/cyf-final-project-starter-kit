@@ -1,7 +1,9 @@
 import express from "express";
 
 import apiRouter from "./api";
+
 import config from "./utils/config";
+
 import {
 	clientRouter,
 	configuredHelmet,
@@ -28,5 +30,8 @@ app.use("/health", (_, res) => res.sendStatus(200));
 app.use(clientRouter(apiRoot));
 
 app.use(logErrors());
+
+
+
 
 export default app;

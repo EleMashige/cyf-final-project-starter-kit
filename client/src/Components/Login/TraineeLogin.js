@@ -2,10 +2,11 @@ import React from 'react';
 import Navbar from '../Navbar/Navbar';
 import Footer from '../Footer/Footer';
 import './TraineeLogin.css'
-import '@fortawesome/fontawesome-free/css/all.min.css';
+{/*import '@fortawesome/fontawesome-free/css/all.min.css';*/}
 import { Link } from 'react-router-dom';
 
 const TraineeLogin = () => {
+
   return (
     <div>
     <Navbar />
