@@ -22,7 +22,7 @@ const TraineeLogin = () => {
   return (
     <div>
       <Navbar />
-      <div className='trainee-login-container'>
+      <div className="trainee-login-container">
         <div className="sign">
           <div className="github">
             <i className="fab fa-github"></i> {/* GitHub icon */}
@@ -30,8 +30,8 @@ const TraineeLogin = () => {
           </div>
           <form className="user_name" onSubmit={inputUser}>
             <input type="text" value={username}  onChange={(e) => setUsername(e.target.value)}
-              className='user' placeholder='GitHub username' required />
-            <input type="submit" className='btn-submit' value="submit" />
+              className="user" placeholder="GitHub username" required />
+            <input type="submit" className="btn-submit" value="submit" />
           </form>
         </div>
       </div>
