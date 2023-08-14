@@ -6,7 +6,7 @@ import logger from "./utils/logger";
 const pool = new Pool({
 	connectionString: config.dbUrl,
 	connectionTimeoutMillis: 5000,
-	ssl: config.dbUrl.includes("localhost")
+	ssl: (config.dbUrl.includes("localhost") || config.dbUrl.includes("127.0.0.1"))
 		? false
 		: { rejectUnauthorized: false },
 });

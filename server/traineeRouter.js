@@ -15,6 +15,7 @@ router.get("/", async (req, res) => {
     }
 
     const cohortData = await getCohortById(traineeData.cohort_id);
+
     if(!cohortData) {
         return res.status(404).json({ error: "No cohort found for the trainee" });
     }

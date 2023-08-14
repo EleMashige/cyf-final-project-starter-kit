@@ -8,7 +8,7 @@ const TraineeTracker = ({ user }) => {
 const [entry, setEntry] = useState([]);
 const [codewars, setCodewars] = useState([]);
 const [cohortName, setCohortName] = useState("");
-const [cohort, setCohort] = useState([]);
+
 
     useEffect(() =>{
         fetch(`https://api.github.com/search/issues?q=is:pr%20author:${user}%20user:codeyourfuture`)
@@ -28,22 +28,19 @@ const [cohort, setCohort] = useState([]);
         .then((data) => setCodewars(data));
     },[user]);
 
-    useEffect(() =>{
-        fetch(`https://api.github.com/search/issues?q=is:pr%20author:${user}%20user:codeyourfuture`)
-        .then((res) => res.json())
-        .then((data) => setCohort(data.items.filter( (item) =>{
-            return console.log(item.url);
-        })));
-    },[user]);
+    useEffect(() => {
+        fetch(`/api/trainees?github_name=${user}`)
+            .then((res) => res.json())
+            .then((data) => {
+                // Assuming the cohortData has a 'name' property. Adjust accordingly if not.
+                setCohortName(data.name || "london 10");
+            })
+            .catch((error) => {
+                console.error("Error fetching cohort name:", error);
+                setCohortName("Error fetching cohort");
+            });
+    }, [user]);
 
-    useEffect(() =>{
-        fetch(`https://api.github.com/search/issues?q=is:pr%20author:${user}%20user:codeyourfuture`)
-        .then((res) => res.json())
-        .then((data) => {
-            const urls = data.items.map((item) => item.url);
-            setCohort(urls);
-        });
-    },[user]);
 
 
     return(
