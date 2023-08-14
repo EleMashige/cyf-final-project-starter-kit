@@ -13,7 +13,6 @@ const DashboardHome = () => {
 
 <div className='adminBtn'>
       <button className="btnlogin">
-
         Hi Admin, welcome to your dashboard!
       </button>
 </div>
@@ -27,8 +26,7 @@ const DashboardHome = () => {
           <button className='adminbodybtn' >Update Modules</button>
         </Link>
         <Link to="/track-trainee-progress">
-          <button>Track Trainee Progress</button>
-
+          <button className='.adminbodybtn1' >Track Trainee Progress</button>
         </Link>
       </div>
   </div>
