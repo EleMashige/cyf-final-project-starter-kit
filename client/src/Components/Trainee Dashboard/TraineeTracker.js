@@ -41,8 +41,6 @@ const [cohortName, setCohortName] = useState("");
             });
     }, [user]);
 
-
-
     return(
         <div className="tracker">
         <Navbar />
