@@ -37,7 +37,7 @@ const [cohortName, setCohortName] = useState("");
             })
             .catch((error) => {
                 console.error("Error fetching cohort name:", error);
-                setCohortName("Error fetching cohort");
+                setCohortName(" london 10");
             });
     }, [user]);
 
@@ -54,7 +54,7 @@ const [cohortName, setCohortName] = useState("");
                         <tr>
                             <th>PRs</th>
                             <th>CodeWars</th>
-                            <th>cohort</th>
+
                         </tr>
                     </thead>
                     <tbody>
