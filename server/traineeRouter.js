@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const { getTraineeByGithubName, getCohortById } = require("../traineeUser");
+const { getTraineeByGithubName, getCohortById } = require("./traineeUser");
 
 router.get("/", async (req, res) => {
     const githubName = req.query.github_name;
