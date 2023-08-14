@@ -7,6 +7,7 @@ const TraineeTracker = ({ user }) => {
 
 const [entry, setEntry] = useState([]);
 const [codewars, setCodewars] = useState([]);
+const [cohortName, setCohortName] = useState("");
 const [cohort, setCohort] = useState([]);
 
     useEffect(() =>{
@@ -29,22 +30,34 @@ const [cohort, setCohort] = useState([]);
 
     useEffect(() =>{
         fetch(`https://api.github.com/search/issues?q=is:pr%20author:${user}%20user:codeyourfuture`)
-        .then(res => res.json())
-        .then(data => setCohort(data.items.filter( item =>{
-            return console.log(item.url)
-        })))
-    },[user])
+        .then((res) => res.json())
+        .then((data) => setCohort(data.items.filter( (item) =>{
+            return console.log(item.url);
+        })));
+    },[user]);
+
+    useEffect(() =>{
+        fetch(`https://api.github.com/search/issues?q=is:pr%20author:${user}%20user:codeyourfuture`)
+        .then((res) => res.json())
+        .then((data) => {
+            const urls = data.items.map((item) => item.url);
+            setCohort(urls);
+        });
+    },[user]);
+
 
     return(
-        <div className='tracker'>
+        <div className="tracker">
         <Navbar />
-            <h1>Hello {user}, below is your tracked score</h1>
-            <div className='tabcontainer'>
-                <table className='tab'>
+            <h1>Hello {user}, {cohortName}</h1>
+
+            <div className="tabcontainer">
+                <table className="tab">
                     <thead>
                         <tr>
                             <th>PRs</th>
                             <th>CodeWars</th>
+                            <th>cohort</th>
                         </tr>
                     </thead>
                     <tbody>

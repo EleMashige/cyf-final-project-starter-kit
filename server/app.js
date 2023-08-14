@@ -10,10 +10,11 @@ import {
 	logErrors,
 } from "./utils/middleware";
 
-const apiRoot = "/api";
+import traineeModle from "./traineeModle";
 
 const app = express();
-
+app.use(traineeModle);
+const apiRoot = "/api";
 app.use(express.json());
 app.use(configuredHelmet());
 app.use(configuredMorgan());
