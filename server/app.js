@@ -9,11 +9,15 @@ import {
 	httpsOnly,
 	logErrors,
 } from "./utils/middleware";
-
-import traineeModle from "./traineeModle";
+import traineeRoutes from "./traineeRouter";
 
 const app = express();
-app.use(traineeModle);
+
+//... other middlewares ...
+
+app.use("/api/trainees", traineeRoutes);
+
+
 const apiRoot = "/api";
 app.use(express.json());
 app.use(configuredHelmet());
