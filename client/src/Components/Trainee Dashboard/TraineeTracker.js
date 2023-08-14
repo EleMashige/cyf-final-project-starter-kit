@@ -37,7 +37,7 @@ const [cohortName, setCohortName] = useState("");
             })
             .catch((error) => {
                 console.error("Error fetching cohort name:", error);
-                setCohortName(" london 10");
+                setCohortName(" ");
             });
     }, [user]);
 
