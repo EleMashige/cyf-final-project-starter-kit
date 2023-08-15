@@ -12,7 +12,7 @@ const TrackProgress = () => {
                 <div className="progress_container">
                     <form className="trainee_form">                
                         <label htmlFor="cohort">Cohort Name: </label>
-                        <input type="text" id="cohort" className="cohort_name" name="cohort" placeholder="Enter Cohort Name" require />
+                        <input type="text" id="cohort" className="cohort_name" name="cohort" placeholder="Enter Cohort Name" required />
                         <input type="submit" className="trainee_submit" value="submit" />
                     </form>
                 </div>
