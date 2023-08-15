@@ -157,7 +157,7 @@ router.get("/traineeProgress", async (req, res) => {
 	}
   });
 
-
+//new endpoint for milstones
 
   router.post("/api/milestones", async (req, res) => {
     const { name, date, github_pr, codewars_rank, cohort_id } = req.body;
