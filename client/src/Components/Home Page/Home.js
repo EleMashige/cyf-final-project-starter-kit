@@ -15,9 +15,9 @@ const Home = () => {
 			<img  src={backgroundImage}  alt="Background" className='bgi' />
 			<Navbar />
 			<div className="container_btn">
-				<button className='welcome_btn'>
+				<h2 className='welcome_btn'>
 					Welcome to CYF Progress Tracker
-				</button>
+				</h2>
 			<LoginButtons />
 			</div>
 
