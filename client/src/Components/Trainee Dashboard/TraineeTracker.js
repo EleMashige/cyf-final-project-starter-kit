@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import Navbar from "../Navbar/Navbar";
 import Footer from "../Footer/Footer";
 import "./TraineeTracker.css";
+import TrackerTable from "./TrackerTable";
 
 const TraineeTracker = ({ user }) => {
 
@@ -63,6 +64,7 @@ const [cohortName, setCohortName] = useState("");
                     </tbody>
                 </table>
             </div>
+            <TrackerTable />
         <Footer />
         </div>
     );

@@ -165,5 +165,22 @@ router.get("/api/trainees", async (req, res) => {
 
 });
 
+//GET FOR TRAINEE PROGRESS TABLE
+
+router.get("/traineeProgress", async (req, res) => {
+	try {
+	const querySelect = `
+		SELECT * from traineeProgress`;
+	const result = await db.query(querySelect);
+	console.log(result);
+
+	res.json(result.rows);
+	} catch (error) {
+	logger.error("Error fetching modules:", error);
+	res.status(500).json({ error: "Internal Server Error" });
+	}
+  });
+
+
 export default router;
 

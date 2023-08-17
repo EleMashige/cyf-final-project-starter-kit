@@ -42,7 +42,7 @@ const Home = () => {
 			>
 				<button
 					style={{
-						width: "700px",
+						width: "51rem",
 						padding: "10px",
 						fontSize: "40px",
 						color: "red", // Add the red color
@@ -51,7 +51,7 @@ const Home = () => {
 						backgroundColor: "rgba(255, 255, 255, 0.7)", // Add some transparency to the button
 					}}
 				>
-					Welcome to CYF Progress Tracker
+					Welcome to CYF Trainees Milestones Tracker
 				</button>
 				<LoginButtons />
 			</div>
