@@ -140,29 +140,47 @@ router.delete("/delete/:id", async (req, res) => {
       res.status(500).json({ error: "Internal Server Error" });
 	}
   });
+  router.post("/api/milestones", async (req, res) => {
+    const { name, date, github_pr, codewars_rank, cohort_id } = req.body;
 
-
-router.get("/api/trainees", async (req, res) => {
-    const githubName = req.query.github_name;
-
-    if (!githubName) {
-        return res.status(400).json({ error: "GitHub name is required" });
-    }
+    const addMilestone = "INSERT INTO milestones (name, date, github_pr, codewars_rank, cohort_id) VALUES ($1, $2, $3, $4, $5) RETURNING id";
 
     try {
-        // This is a pseudo code. Use your actual DB logic here
-        const trainees = await db.query("SELECT * FROM trainees WHERE github_name = $1", [githubName]);
-
-        if (trainees.rows.length === 0) {
-            return res.status(404).json({ error: "Trainee not found" });
-        }
-
-        res.json(trainees.rows[0]);  // Assuming you want to return just the first match
+        const result = await db.query(addMilestone, [name, date, github_pr, codewars_rank, cohort_id]);
+        res.send(result.rows[0]);
     } catch (error) {
-        logger.error(error);
-        res.status(500).json({ error: "Failed to retrieve trainee" });
+        logger.debug(error);
+        res.status(500).send("Internal Server Error");
     }
+});
+// GET cohort from GitHub username
+router.get("/api/trainees", async (req, res) => {
+    const { github_name } = req.query;
 
+    // Check if github_name query parameter is present
+    if (github_name) {
+        const querySelect = `
+            SELECT trainee.id, trainee.github_name, cohorts.id AS cohort_id, cohorts.name AS cohort_name
+            FROM trainee
+            JOIN cohorts ON trainee.cohort_id = cohorts.id
+            WHERE trainee.github_name = $1`;
+
+        try {
+            const result = await db.query(querySelect, [github_name]);
+            // Return data if exists, otherwise return 404 Not Found
+            if (result.rows.length > 0) {
+                res.json(result.rows[0]);
+            } else {
+                res.status(404).json({ error: "No trainee with the given GitHub username found." });
+            }
+        } catch (error) {
+            logger.error("Error fetching trainee by GitHub username:", error);
+            res.status(500).json({ error: "Internal Server Error" });
+        }
+    } else {
+        // This is where you can handle getting all trainees or trainees by cohort_id, if needed.
+        res.status(400).json({ error: "Please provide a GitHub username." });
+    }
 });
 
 //GET FOR TRAINEE PROGRESS TABLE
@@ -181,6 +199,40 @@ router.get("/traineeProgress", async (req, res) => {
 	}
   });
 
+  router.get("/api/trainees", async (req, res) => {
+    try {
+        const { github_name } = req.query;
+        if (!github_name) {
+            return res.status(400).json({ error: "GitHub name is required." });
+        }
+
+        const querySelect = `
+            SELECT t.id, t.github_name, c.id as cohort_id, c.name as cohort_name
+            FROM trainee t
+            JOIN cohorts c ON t.cohort_id = c.id
+            WHERE t.github_name = $1`;
+        const result = await db.query(querySelect, [github_name]);
+
+        if (result.rows.length === 0) {
+            return res.status(404).json({ error: "Trainee not found." });
+        }
+
+        const formattedResponse = {
+            id: result.rows[0].id,
+            github_name: result.rows[0].github_name,
+            cohort: {
+                id: result.rows[0].cohort_id,
+                name: result.rows[0].cohort_name,
+            },
+        };
+
+        res.json(formattedResponse);
+    } catch (error) {
+        logger.error("Error fetching trainee by GitHub name:", error);
+        res.status(500).json({ error: "Internal Server Error" });
+    }
+});
+
+
 
 export default router;
-
