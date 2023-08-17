@@ -1,18 +1,18 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Navbar from "../Navbar/Navbar";
 import Footer from "../Footer/Footer";
 import "./TrackProgress.css";
-import  { useEffect, useState } from "react";
+const TrackProgress = () => {
+  // This state and effect should be inside the component.
   const [milestones, setMilestones] = useState([]);
 
   useEffect(() => {
-      fetch("/api/milestones")
-          .then((response) => response.json())
-          .then((data) => setMilestones(data))
-          .catch((error) => console.error("Error fetching milestones:", error));
+    fetch("/api/milestones")
+    .then((response) => response.json())
+    .then((data) => setMilestones(data))
+    .catch((error) => console.error("Error fetching milestones:", error));
   }, []);
 
-const TrackProgress = () => {
     return(
         <div>
             <Navbar />
