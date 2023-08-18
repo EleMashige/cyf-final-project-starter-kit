@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import moment from 'moment';
-
+import moment from "moment";
+import "./AdminTrackerTable.css";
 const AdminTrackerTable = () => {
     const [progressData, setProgressData] = useState([]);
     const [formData, setFormData] = useState({
@@ -9,7 +9,7 @@ const AdminTrackerTable = () => {
         date: "",
         required_pull_requests: "",
         codewars: "",
-        cohort: ""
+        cohort: "",
     });
     const [editingEntryId, setEditingEntryId] = useState(null);
     const [editedMilestones, setEditedMilestones] = useState("");
@@ -37,7 +37,7 @@ const AdminTrackerTable = () => {
         const { name, value } = event.target;
         setFormData((prevData) => ({
             ...prevData,
-            [name]: value
+            [name]: value,
         }));
     };
 
@@ -70,7 +70,7 @@ const AdminTrackerTable = () => {
         try {
             const updatedEntry = {
                 milestones: editedMilestones,
-                date: moment(editedDate).format('YYYY-MM-DD'),
+                date: moment(editedDate).format("YYYY-MM-DD"),
                 required_pull_requests: editedRequiredPullRequests,
                 codewars: editedCodewars,
                 cohort: editedCohort,
@@ -79,7 +79,7 @@ const AdminTrackerTable = () => {
             setEditingEntryId(null);
             fetchProgressData();
         } catch (error) {
-            console.error('Error updating trainee progress:', error);
+            console.error("Error updating trainee progress:", error);
         }
     };
 
@@ -117,8 +117,9 @@ const AdminTrackerTable = () => {
 
     return (
         <div>
-            <div>
-                <h2>Insert new milestone</h2>
+             <h2>Insert new milestone</h2>
+            <div className="form">
+
                 {/* FORM TO INSERT NEW MILESTONES */}
                 <form onSubmit={handleSubmit}>
                     <label>Milestones:</label>
@@ -245,7 +246,3 @@ const AdminTrackerTable = () => {
 };
 
 export default AdminTrackerTable;
-
-
-
-
