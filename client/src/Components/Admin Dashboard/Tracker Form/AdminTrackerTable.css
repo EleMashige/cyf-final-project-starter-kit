@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 
 
 .form {
@@ -58,3 +59,58 @@ button {
         font-size: 14px;
     }
 }
+=======
+.admin-container{
+    padding-top: 10px;
+    padding-bottom: 120px;
+    padding-left: 50px;
+}
+
+
+    .milestone-form {
+        max-width: 300px;
+        margin: 0 auto;
+        padding: 10px 50px 10px 50px;
+        border: 1px solid #ccc;
+        border-radius: 6px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        background-color: #fff;
+        margin-left: 20px;
+    }
+
+    .milestone-form h2 {
+        font-size: 20px;
+        margin-bottom: 15px;
+    }
+
+    .milestone-form label {
+        font-size:medium;
+        margin-bottom: 6px;
+        font-weight:bold;
+    }
+
+    .milestone-form select,
+    .milestone-form input[type="number"],
+    .milestone-form input[type="date"] {
+        width: 100%;
+        padding: 6px;
+        margin-bottom: 12px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+    }
+
+    .milestone-form button[type="submit"] {
+        background-color: #d33a3a;
+        color: #fff;
+        padding: 8px 16px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 14px;
+    }
+
+    .milestone-form button[type="submit"]:hover {
+        background-color: #d33a3a;
+    }
+
+>>>>>>> fba18fa13551428892c912119faf3b7f2abb7317

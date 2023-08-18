@@ -26,7 +26,10 @@ const [cohort, setCohort] = useState([]);
     useEffect(() =>{
         fetch(`https://www.codewars.com/api/v1/users/${user}`)
         .then((res) => res.json())
-        .then((data) => setCodewars(data));
+        .then((data) => {
+            console.log('object',Object.values(data.ranks))
+            setCodewars(Object.values(data.ranks))
+        });
     },[user]);
 
     useEffect(() => {
@@ -41,7 +44,7 @@ const [cohort, setCohort] = useState([]);
         <div className='tracker'>
             <Navbar />
             <BackButton />
-            <h1>Hello {user}, below is your tracked score</h1>
+            <h1>Hello {user}, below is your current score as of  {new Date().toLocaleDateString()}</h1>
             <div className='tabcontainer'>
                 <table className='tab'>
                     <thead>
@@ -53,7 +56,13 @@ const [cohort, setCohort] = useState([]);
                     <tbody>
                         <tr>
                             <td>{entry?.total_count || "Loading..."}</td>
-                            <td>{codewars?.honor || "Loading..."}</td>
+                            {
+                                codewars.map(item =>{
+                                    return(
+                                        <td key={item.rank}>{item?.rank}</td>
+                                    )
+                                })
+                            }
                         </tr>
 
                     </tbody>

@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import Navbar from "../Navbar/Navbar";
 import Footer from "../Footer/Footer";
 import moment from "moment";
-import "./modules.css";
+import "./Modules.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import axios from "axios";
 import BackButton from "../BackButton/BackButton";

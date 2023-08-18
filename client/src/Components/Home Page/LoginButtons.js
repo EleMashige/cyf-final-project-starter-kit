@@ -18,9 +18,9 @@ const LoinButtons = () => {
 						Trainee Access
 					</button>
 				</Link>
-				<Link to="/admin-login">
+				<Link to="/admin-dashboard">
 					<button style={{ padding: "10px 20px", fontSize: "16px" }}>
-						Admin Login
+						Admin Access
 					</button>
 				</Link>
 			</div>

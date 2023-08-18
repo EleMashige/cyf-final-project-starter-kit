@@ -14,6 +14,11 @@ const TrackerTable = () => {
                     entry.cohort.toLowerCase() === cohortFilter.toLowerCase()
                 );
                 setFilteredData(filtered);
+
+                // Display an alert if filtered data is empty
+                if (filtered.length === 0) {
+                    alert("Cohort does not exist.");
+                }
             })
             .catch((error) => {
                 console.error("Error fetching data:", error);
@@ -26,7 +31,7 @@ const TrackerTable = () => {
             <div className="filter-container">
                 <input
                     type="text"
-                    placeholder="Enter Cohort"
+                    placeholder="Enter Cohort to view requirements"
                     value={cohortFilter}
                     onChange={(e) => setCohortFilter(e.target.value)}
                 />
